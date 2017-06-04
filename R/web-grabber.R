@@ -21,6 +21,7 @@ library(ggplot2)
 #' @description Take to arguments (key and value) and return a charater string
 buildArg <- function(key, value){
   return(paste(key, "=", value,"&", sep=""))
+
 }
 
 fromJson_workaround <- function(url) {
@@ -45,6 +46,9 @@ fromJson_workaround <- function(url) {
 #' @details The return string is constructed by pasting the base url ("http://stats.nba.com/stats/"), the stat-category, and all additional parameters.
 #' Additional url arguments are build using the buildArg function. All available arguments are pasted to the url assuming that those who are empty will
 #' not cause an error as long as they are not needed for the request
+#'
+#' @examples
+#' urlBuilder(statCat = "commonallplayers", TeamID = "1610612751")
 urlBuilder <- function(statCat              = "commonallplayers",
                        LeagueID             = "00",
                        isOnlyCurrentSeason  = "1",
@@ -82,6 +86,10 @@ urlBuilder()
 #'  3. resultsSet: The actual results, data lies in rowSet (df or vector there might be more than one rowset), column headers in headers, the id of the row set can be found under names
 #'  The function extracts the rowSet and renames the columns of the rowSet to the corresponding headers (all other information in the JSON object are currently ommitted,
 #'  although this might change in the future). By default always the first row set is extracted, behaviour can be changed by the index argument.
+#'
+#' @examples
+#' fromJSON(urlBuilder(statCat = "commonallplayers", TeamID = "1610612751"))
+#' all_players <- nbaStatsGrabber(urlBuilder(statCat = "commonallplayers", TeamID = "1610612751"))
 nbaStatsGrabber<- function(url,
                            index = 1){
   raw_list <- fromJson_workaround(url)
@@ -100,6 +108,7 @@ all_players <- nbaStatsGrabber(urlBuilder(statCat = "commonallplayers", TeamID =
 #'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'# Some probably useful links:
 
 
+# Some probably useful links:
 #     - Player Career Stats http://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=201167
 #     - Player Game Log http://stats.nba.com/stats/playergamelog?DateFrom=&DateTo=&LeagueID=00&PlayerID=201167&Season=2016-17&SeasonType=Regular+Season
 #     - Team Game Logs http://stats.nba.com/stats/teamgamelog?DateFrom=&DateTo=&LeagueID=00&Season=2016-17&SeasonType=Regular+Season&TeamID=1610612741
@@ -113,7 +122,7 @@ teams <- unique(all_players$TEAM_CODE)
 activeplayerIds <- all_players %>% filter(TEAM_CODE != "") %>% select(c(PERSON_ID,DISPLAY_FIRST_LAST, TEAM_ID, TEAM_CODE))
 
 getTeamStats <- function(teamID, value = "common"){
-  # teamID <- "1610612751"
+  teamID <- "1610612751"
   url <- paste("http://stats.nba.com/stats/teaminfocommon?LeagueID=00&SeasonType=Regular+Season&TeamID=",teamID,"&season=2016-17", sep = "")
   raw <- fromJson_workaround(url)
 #  str(raw)
@@ -130,6 +139,7 @@ getTeamStats <- function(teamID, value = "common"){
   }
 }
 getTeamStats("1610612751", "common")
+jsonlite::fromJSON()
 
 
 ### Players
