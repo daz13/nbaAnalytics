@@ -8,11 +8,14 @@ library(ggplot2)
 #' @examples
 #' get_PlayerCareerStats_by_name("Dirk Nowitzki")
 get_PlayerCareerStats_by_name <- function(n) {
-  id <- nbaAnalytics::all_players
-    %>% filter(DISPLAY_FIRST_LAST == n)
-    %>% select(PERSON_ID)
+  id <- nbaAnalytics::all_players %>%
+    filter(DISPLAY_FIRST_LAST == n) %>%
+    select(PERSON_ID)
   nbaStatsGrabber((urlBuilder(statCat = "playercareerstats",
-                              PlayerID = as.character(id[1,1]))))
+                              PlayerID = as.character(id[1,1])
+                              )
+                   )
+                  )
 }
 
 #'
@@ -20,9 +23,9 @@ get_PlayerCareerStats_by_name <- function(n) {
 #' @examples
 #' get_PlayerGameLog_by_name("Dirk Nowitzki")
 get_PlayerGameLog_by_name <- function(n) {
-  id <- nbaAnalytics::all_players
-    %>% filter(DISPLAY_FIRST_LAST == n)
-    %>% select(PERSON_ID)
+  id <- nbaAnalytics::all_players %>%
+    filter(DISPLAY_FIRST_LAST == n) %>%
+    select(PERSON_ID)
   nbaStatsGrabber((urlBuilder(statCat = "playergamelog",
                               PlayerID = as.character(id[1,1]))))
 }
@@ -43,6 +46,17 @@ plot_PlayerStats <- function(data, statistic) {
     theme_bw()
 }
 
+#' @examples
+#' plot_playerScoring(testDat)
+plot_playerScoring <- function(data) {
+  data %>% select(SEASON_ID, TEAM_ABBREVIATION,
+                  PTS, FGA, FG_PCT, FG3A, FG3_PCT) %>%
+    reshape2::melt(id.vars = c("SEASON_ID", "TEAM_ABBREVIATION")) %>%
+    mutate(value = as.numeric(as.character(value))) %>%
+    ggplot(aes(x = SEASON_ID, y = value, col = variable, group = variable )) +
+    geom_line() +
+    facet_wrap(~ variable, scales = "free_y", ncol = 2)
+}
 
 
 # Some probably useful links:

@@ -13,6 +13,7 @@ library(stringr)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+
   output$team <- renderUI(
     selectInput("team",
                 label = "Select team",
@@ -29,9 +30,23 @@ shinyServer(function(input, output) {
                 choices = players()$DISPLAY_FIRST_LAST)
   )
 
-  output$playerPlot <- renderPlot({
-    dat <- get_PlayerCareerStats_by_name(input$player)
-    plot_PlayerStats(dat, "PTS")
+  player_career_stats <- reactive({
+    get_PlayerCareerStats_by_name(input$player)
+  })
+
+  output$stat_cat <- renderUI(
+    selectInput("stat_cat",
+                "Select Category",
+                choices = names(player_career_stats()), selected = "PTS")
+  )
+
+  output$playerPlot <- renderPlotly({
+    plot_PlayerStats(player_career_stats(),#,"PTS")
+                     input$stat_cat)
+  })
+
+  output$playerScoring <- renderPlotly({
+    plot_playerScoring(player_career_stats())
   })
 
 })

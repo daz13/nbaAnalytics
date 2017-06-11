@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(plotly)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -24,7 +25,15 @@ shinyUI(fluidPage(
 
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("playerPlot")
+      tabsetPanel(
+        tabPanel("Single Statistics",
+                 uiOutput("stat_cat"),
+                 fluidRow(plotlyOutput("playerPlot"))
+                 ),
+        tabPanel("Scoring",
+                 fluidRow(plotlyOutput("playerScoring"))
+                 )
+      )
     )
   )
 ))
