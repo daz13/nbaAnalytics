@@ -8,19 +8,23 @@ library(ggplot2)
 #' @examples
 #' get_PlayerCareerStats_by_name("Dirk Nowitzki")
 get_PlayerCareerStats_by_name <- function(n) {
-  id <- nbaAnalytics::all_players %>% filter(DISPLAY_FIRST_LAST == n) %>% select(PERSON_ID)
-  nbaStatsGrabber((urlBuilder(statCat = "playercareerstats", PlayerID = as.character(id[1,1]))))
+  id <- nbaAnalytics::all_players
+    %>% filter(DISPLAY_FIRST_LAST == n)
+    %>% select(PERSON_ID)
+  nbaStatsGrabber((urlBuilder(statCat = "playercareerstats",
+                              PlayerID = as.character(id[1,1]))))
 }
-
-
 
 #'
 #'
 #' @examples
 #' get_PlayerGameLog_by_name("Dirk Nowitzki")
 get_PlayerGameLog_by_name <- function(n) {
-  id <- nbaAnalytics::all_players %>% filter(DISPLAY_FIRST_LAST == n) %>% select(PERSON_ID)
-  nbaStatsGrabber((urlBuilder(statCat = "playergamelog", PlayerID = as.character(id[1,1]))))
+  id <- nbaAnalytics::all_players
+    %>% filter(DISPLAY_FIRST_LAST == n)
+    %>% select(PERSON_ID)
+  nbaStatsGrabber((urlBuilder(statCat = "playergamelog",
+                              PlayerID = as.character(id[1,1]))))
 }
 
 
