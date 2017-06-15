@@ -45,6 +45,10 @@ shinyServer(function(input, output) {
                      input$stat_cat)
   })
 
+  output$playerPoints <- renderPlotly({
+    plot_playerPoints(player_career_stats())
+  })
+
   output$playerScoring <- renderPlotly({
     plot_playerScoring(player_career_stats())
   })

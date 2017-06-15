@@ -59,7 +59,7 @@ fromJson_workaround <- function(url) {
 urlBuilder <- function(statCat              = "commonallplayers",
                        LeagueID             = "00",
                        isOnlyCurrentSeason  = "1",
-                       Season               = "2016-17",
+                       SeasonYear           = "2016-17",
                        DateFrom             = "",
                        DateTo               = "",
                        SeasonType           = "Regular+Season",
@@ -70,7 +70,7 @@ urlBuilder <- function(statCat              = "commonallplayers",
     return(paste("http://stats.nba.com/stats/",statCat,"?",
                  buildArg("LeagueID",LeagueID),
                  buildArg("isOnlyCurrentSeason",isOnlyCurrentSeason),
-                 buildArg("Season",Season),
+                 buildArg("SeasonYear",SeasonYear),
                  buildArg("TeamID", TeamID),
                  buildArg("PlayerID",PlayerID),
                  buildArg("SeasonType",SeasonType),
@@ -98,9 +98,11 @@ urlBuilder <- function(statCat              = "commonallplayers",
 nbaStatsGrabber<- function(url,
                            index = 1){
   raw_list <- fromJson_workaround(url)
-  # Convert raw input to player list
+
+    # Convert raw input to player list
   all_players <- as.data.frame(raw_list$resultSet$rowSet[[index]])
   names(all_players)  <- raw_list$resultSets$headers[[index]]
+
   return(all_players)
 }
 
@@ -125,4 +127,60 @@ getTeamStats <- function(teamID, value = "common"){
 #     - Player Career Stats http://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=201167
 #     - Player Game Log http://stats.nba.com/stats/playergamelog?DateFrom=&DateTo=&LeagueID=00&PlayerID=201167&Season=2016-17&SeasonType=Regular+Season
 #     - Team Game Logs http://stats.nba.com/stats/teamgamelog?DateFrom=&DateTo=&LeagueID=00&Season=2016-17&SeasonType=Regular+Season&TeamID=1610612741
+
+
+#'
+#' Resource playergamelog
+#' MeasureType
+#' PerMode
+#' LeagueID
+#' SeasonType
+#' SeasonYear
+#' PORound
+#' TeamID
+#' PlayerID
+#' Outcome
+#' Location
+#' Month
+#' SeasonSegment
+#' DateFrom
+#' DateTo
+#' OppTeamID
+#' VsConference
+#' VSDivision
+#' GameSegment
+#' Period
+#' ShotClockRange
+#' LastNGames
+#'
+#' Resource: commonplayerinfo
+#' PlayerID
+#' LeagueID
+#'
+#' Resource: playercareerstats
+#' PlayerID
+#' LeagueID
+#' PerMode: Totals, PerGame, Per36 (required)
+#'
+#' Resource: playerdashptshots
+#' PerMode
+#' LeagueID
+#' SeasonType
+#' SeasonYear
+#' PORound
+#' TeamID
+#' PlayerID
+#' Outcome
+#' Location
+#' Month
+#' SeasonSegment
+#' DateFrom
+#' DateTo
+#' OppTeamID
+#' VsConference
+#' VSDivision
+#' GameSegment
+#' Period
+#' ShotClockRange
+#' LastNGames
 

@@ -10,6 +10,8 @@
 library(shiny)
 library(plotly)
 
+devtools::load_all(".")
+
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
@@ -29,10 +31,13 @@ shinyUI(fluidPage(
         tabPanel("Single Statistics",
                  uiOutput("stat_cat"),
                  fluidRow(plotlyOutput("playerPlot"))
-                 ),
+        ),
         tabPanel("Scoring",
-                 fluidRow(plotlyOutput("playerScoring"))
-                 )
+                 h3("Points"),
+                 plotlyOutput("playerPoints"),
+                 h3("Shooting volumes and Percentages"),
+                 plotlyOutput("playerScoring")
+        )
       )
     )
   )
