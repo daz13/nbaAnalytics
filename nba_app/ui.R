@@ -20,13 +20,13 @@ shinyUI(fluidPage(
 
   # Sidebar with a slider input for number of bins
   sidebarLayout(
-    sidebarPanel(
+    sidebarPanel(width = 2,
       uiOutput("team"),
       uiOutput("player")
     ),
 
     # Show a plot of the generated distribution
-    mainPanel(
+    mainPanel( width= 10,
       tabsetPanel(
         tabPanel("Single Statistics",
                  uiOutput("stat_cat"),
@@ -36,7 +36,8 @@ shinyUI(fluidPage(
                  h3("Points"),
                  plotlyOutput("playerPoints"),
                  h3("Shooting volumes and Percentages"),
-                 plotlyOutput("playerScoring")
+                 column(6,plotlyOutput("playerShootingVolumes")),
+                 column(6,plotlyOutput("playerShootingPercentages"))
         )
       )
     )

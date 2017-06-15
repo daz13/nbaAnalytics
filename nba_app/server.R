@@ -49,8 +49,11 @@ shinyServer(function(input, output) {
     plot_playerPoints(player_career_stats())
   })
 
-  output$playerScoring <- renderPlotly({
-    plot_playerScoring(player_career_stats())
+  output$playerShootingVolumes <- renderPlotly({
+    plot_playerStats(player_career_stats(), FGA, FG3A, FTA)
+  })
+  output$ playerShootingPercentages <- renderPlotly({
+    plot_playerStats(player_career_stats(), FG_PCT, FG3_PCT, FT_PCT)
   })
 
 })

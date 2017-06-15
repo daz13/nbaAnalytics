@@ -6,7 +6,7 @@ library(ggplot2)
 #'
 #'
 #' @examples
-#' get_PlayerCareerStats_by_name("Dirk Nowitzki")
+#' dat <- get_PlayerCareerStats_by_name("Lance Stephenson"); dat
 get_PlayerCareerStats_by_name <- function(n) {
   id <- nbaAnalytics::all_players %>%
     filter(DISPLAY_FIRST_LAST == n) %>%
@@ -21,7 +21,7 @@ get_PlayerCareerStats_by_name <- function(n) {
 #'
 #'
 #' @examples
-#' get_PlayerGameLog_by_name("Dirk Nowitzki")
+#' get_PlayerGameLog_by_name(n = "Dirk Nowitzki")
 get_PlayerGameLog_by_name <- function(n) {
   id <- nbaAnalytics::all_players %>%
     filter(DISPLAY_FIRST_LAST == n) %>%
@@ -52,40 +52,37 @@ plot_PlayerStats <- function(data, statistic) {
 plot_playerPoints <- function(data) {
   data %>% select(SEASON_ID, TEAM_ABBREVIATION,
                   PTS, FG_PCT) %>%
+    cleanMultiTeamSeasons() %>%
     #reshape2::melt(id.vars = c("SEASON_ID", "TEAM_ABBREVIATION", "FG_PCT")) %>%
     mutate(PTS  = as.numeric(as.character(PTS)),
            FG_PCT = as.numeric(as.character(FG_PCT))) %>%
-    ggplot(aes(x = SEASON_ID, y = PTS, fill = FG_PCT, col = TEAM_ABBREVIATION)) +
+    ggplot(aes(x = SEASON_ID, y = PTS, fill = FG_PCT)) +
     geom_bar(stat = "identity", position = "dodge")
 }
 
-
+cleanMultiTeamSeasons <- function(df) {
+  seasons <- levels(df$SEASON_ID)
+  for (i in seasons) {
+    season_rows <- which(df$SEASON_ID == i)
+    if (length(season_rows) > 1){
+      df <- df[-(season_rows[1]:season_rows[length(season_rows) - 1]),]
+    }
+  }
+  df
+}
 
 #' @examples
-#' plot_playerScoring(testDat)
-plot_playerScoring <- function(data) {
-  data %>% select(SEASON_ID, TEAM_ABBREVIATION,
-                  FGA, FGM, FG_PCT, FG3A, FG3M, FG3_PCT) %>%
-    reshape2::melt(id.vars = c("SEASON_ID", "TEAM_ABBREVIATION")) %>%
-    mutate(value = as.numeric(as.character(value))) %>%
-    reshape2::dcast(SEASON_ID + TEAM_ABBREVIATION ~ variable) %>%
-    mutate(FG2A = FGA - FG3A,
-           FG2_PCT = (FGM - FG3M)/FG2A) %>%
-    select(SEASON_ID, TEAM_ABBREVIATION,
-           FGA, FG_PCT, FG2A, FG2_PCT, FG3A, FG3_PCT) %>%
+#' dat <- get_PlayerCareerStats_by_name("Paul George")
+#' plot_playerStats(dat, FGA, FGM, FG3A, FG3M, FTA, FTM)
+plot_playerStats <- function(dat, ...) {
+  dat %>% select(SEASON_ID, TEAM_ABBREVIATION, ...) %>%
+    cleanMultiTeamSeasons() %>%
     reshape2::melt(id.vars = c("SEASON_ID", "TEAM_ABBREVIATION")) %>%
     mutate(value = as.numeric(as.character(value))) %>%
     ggplot(aes(x = SEASON_ID, y = value, col = variable, group = variable )) +
-    geom_line() +
-    facet_wrap(~ variable, scales = "free_y", ncol = 2)
+    geom_line() #+
+    #facet_wrap(~ variable, scales = "free_y", ncol = 2)
 }
-#
-# all_Players_data <- lapply(all_players$DISPLAY_FIRST_LAST, function(x) {
-#   print(x)
-#   Sys.sleep(1)
-#   get_PlayerCareerStats_by_name(x)})
-
-
 
 # Some probably useful links:
 #     - Player Info commonplayerinfor
