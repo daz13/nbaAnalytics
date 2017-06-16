@@ -11,7 +11,7 @@ get_PlayerCareerStats_by_name <- function(n, permode = "Per36") {
   id <- nbaAnalytics::all_players %>%
     filter(DISPLAY_FIRST_LAST == n) %>%
     select(PERSON_ID)
-  nbaStatsGrabber((urlBuilder(statCat = "playercareerstats",
+  careerStatsGrabber((urlBuilder(statCat = "playercareerstats",
                               parameters = list(PlayerID = as.character(id[1,1]),
                                                 PerMode =  permode)
                               )

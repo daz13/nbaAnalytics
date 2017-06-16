@@ -93,7 +93,7 @@ urlBuilder <- function(statCat    = "commonallplayers",
 #'
 #' @examples
 #' all_players <- nbaStatsGrabber(urlBuilder(statCat = "commonallplayers", TeamID = "1610612751"))
-nbaStatsGrabber<- function(url,
+careerStatsGrabber<- function(url,
                            index = 1){
   raw_list <- fromJson_workaround(url)
 
@@ -120,6 +120,39 @@ getTeamStats <- function(url, teamID, value = "common"){
     return(team_stats)
   }
 }
+
+getTeamSeasonStats <- function(parameters = list(TeamID = basicTeamInfo %>% select(TEAM_ID)
+                                            SeasonType = "Playoffs")){
+
+  params <- list(TeamID = "",
+                 MeasureType = "Base",
+                 SeasonType = "Regular+Season",
+                 PerMode = "PerGame",
+                 PlusMinus = "N",
+                 PaceAdjust = "N",
+                 Rank = "N",
+                 Season = "2016-17",
+                 Outcome = "",
+                 Location = "",
+                 Month	= "0",
+                 SeasonSegment = "",
+                 DateFrom	= "",
+                 DateTo	= "",
+                 OpponentTeamID	= "0",
+                 VsConference	= "",
+                 VsDivision	= "",
+                 GameSegment	= "",
+                 Period	= "0",
+                 ShotClockRange	= "",
+                 LastNGames	= "0"
+  )
+
+  params[] <- lapply(names(params), function(x) if(x %in% names(testCust)) testCust[[x]] else params[[x]] )
+
+  url <- urlBuilder(statCat = "teamdashboardbygeneralsplits", parameters = params)
+  fromJson_workaround(url)
+}
+getTeamSeasonStats()
 
 # Some probably useful links:
 #     - Player Career Stats http://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=201167

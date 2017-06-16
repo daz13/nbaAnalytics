@@ -176,13 +176,22 @@ $(document).ready(function () {
 <h1>Get Basic team data</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTUsIm5yb3ciOjF9LCJyZGYiOiJINHNJQUFBQUFBQUFBM1dTYlZPQ1FCQ0FUNUJVR3NPbTN5RURhSm9mVDZFWkpvRUdHRjgrT1lTVWpBZ09ZdmJyclFPNWlwMzZjTEQ3N012dDdxMnRMaFIrd1NPRUdNU3lER0pZSXRZWjhxbWhPbXJsL3crRTJEc2lDT1IwZmhsNGVTQkxBMWtaOWhWZ2FTaVNQT2pLUTRDdlZDK0t2QU9nTGNON0Q5TFEzMElEcStJcFFQVjVjTWhndkpNY3M4M3BEOFB1bjhSTXJ3ZEpmd1FJSjRsOUNmYkZ5RElndFh0WW9UeDZrQ0RMeHdHbXlzWGVMcUNGQ1hSdXJvYU5sYTZXNnJXalljY3lWMHNOMjdTbndtT2l1OHNLTUxHaGxlQzJBSGc4dHJXWmpsM2RNa3VEY0FtMXpFZk4xc3dKOVc4WFdOVm51dlBqVzE1anFkU3JOcWZDbEw3Tzg4U2wzbm5TbFkzTnB4STBTYnFLYnVpVkxwb0dYbHowNmxCYWFYSVM2V0RhaGFFNDFjbjVaSWZnay9KckwvUEUxNVRFRXUwTVFockpQZ3VUbUFReCtTSno4QkZUQURySE9LOWkzZlUzeDNqYlZmTGw0TXR5VUxXMGIxbTQzTWw4bHJrNHV2UkIvQmJHQVMwKzhsNkNxRlJ1U0x0RnQrSStEZU9NdGtMb1FjeVN6S04rdko5RWxCVE5vZk1YZm54dGtiY0RBQUE9In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["TEAM_ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["SEASON_YEAR"],"name":[2],"type":["chr"],"align":["left"]},{"label":["TEAM_CITY"],"name":[3],"type":["chr"],"align":["left"]},{"label":["TEAM_NAME"],"name":[4],"type":["chr"],"align":["left"]},{"label":["TEAM_ABBREVIATION"],"name":[5],"type":["chr"],"align":["left"]},{"label":["TEAM_CONFERENCE"],"name":[6],"type":["chr"],"align":["left"]},{"label":["TEAM_DIVISION"],"name":[7],"type":["chr"],"align":["left"]},{"label":["TEAM_CODE"],"name":[8],"type":["chr"],"align":["left"]},{"label":["W"],"name":[9],"type":["chr"],"align":["left"]},{"label":["L"],"name":[10],"type":["chr"],"align":["left"]},{"label":["PCT"],"name":[11],"type":["chr"],"align":["left"]},{"label":["CONF_RANK"],"name":[12],"type":["chr"],"align":["left"]},{"label":["DIV_RANK"],"name":[13],"type":["chr"],"align":["left"]},{"label":["MIN_YEAR"],"name":[14],"type":["chr"],"align":["left"]},{"label":["MAX_YEAR"],"name":[15],"type":["chr"],"align":["left"]}],"data":[{"1":"1610612742","2":"2016-17","3":"Dallas","4":"Mavericks","5":"DAL","6":"West","7":"Southwest","8":"mavericks","9":"33","10":"49","11":"0.402","12":"11","13":"5","14":"1980","15":"2016"}],"options":{"columns":{"min":{},"max":[10],"total":[15]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcblxuYGBgIn0= -->
+<pre class="r"><code>library(dplyr)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hlIFBha2V0OiDigJhkcGx5cuKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c3RhdHPigJk6XG5cbiAgICBmaWx0ZXIsIGxhZ1xuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGludGVyc2VjdCwgc2V0ZGlmZiwgc2V0ZXF1YWwsIHVuaW9uXG4ifQ== -->
+<pre><code>
+Attache Paket: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -190,19 +199,103 @@ $(document).ready(function () {
 <h1>Get season Stats</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnJvbUpzb25fd29ya2Fyb3VuZCh1cmwpXG5cbmBgYCJ9 -->
-<pre class="r"><code>fromJson_workaround(url)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0VGVhbVNlYXNvblN0YXRzKHBhcmFtZXRlcnMgPSBsaXN0KFRlYW1JRCA9IGJhc2ljVGVhbUluZm8gJT4lIHNlbGVjdChURUFNX0lEKSkpXG5cbmBgYCJ9 -->
+<pre class="r"><code>getTeamSeasonStats(parameters = list(TeamID = basicTeamInfo %&gt;% select(TEAM_ID)))
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRmVobGVyIGluIGN1cmw6OmN1cmxfZG93bmxvYWQodXJsLCBcInRlbXBcIikgOiBIVFRQIGVycm9yIDQwMC5cbiJ9 -->
-<pre><code>Fehler in curl::curl_download(url, &quot;temp&quot;) : HTTP error 400.</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiJHJlc291cmNlXG5bMV0gXCJ0ZWFtZGFzaGJvYXJkYnlnZW5lcmFsc3BsaXRzXCJcblxuJHBhcmFtZXRlcnNcbiRwYXJhbWV0ZXJzJE1lYXN1cmVUeXBlXG5bMV0gXCJCYXNlXCJcblxuJHBhcmFtZXRlcnMkUGVyTW9kZVxuWzFdIFwiUGVyR2FtZVwiXG5cbiRwYXJhbWV0ZXJzJFBsdXNNaW51c1xuWzFdIFwiTlwiXG5cbiRwYXJhbWV0ZXJzJFBhY2VBZGp1c3RcblsxXSBcIk5cIlxuXG4kcGFyYW1ldGVycyRSYW5rXG5bMV0gXCJOXCJcblxuJHBhcmFtZXRlcnMkTGVhZ3VlSURcbk5VTExcblxuJHBhcmFtZXRlcnMkU2Vhc29uXG5bMV0gXCIyMDE2LTE3XCJcblxuJHBhcmFtZXRlcnMkU2Vhc29uVHlwZVxuWzFdIFwiUmVndWxhciBTZWFzb25cIlxuXG4kcGFyYW1ldGVycyRQT1JvdW5kXG5OVUxMXG5cbiRwYXJhbWV0ZXJzJFRlYW1JRFxuWzFdIDE2MTA2MTI3NDJcblxuJHBhcmFtZXRlcnMkT3V0Y29tZVxuTlVMTFxuXG4kcGFyYW1ldGVycyRMb2NhdGlvblxuTlVMTFxuXG4kcGFyYW1ldGVycyRNb250aFxuWzFdIDBcblxuJHBhcmFtZXRlcnMkU2Vhc29uU2VnbWVudFxuTlVMTFxuXG4kcGFyYW1ldGVycyREYXRlRnJvbVxuTlVMTFxuXG4kcGFyYW1ldGVycyREYXRlVG9cbk5VTExcblxuJHBhcmFtZXRlcnMkT3Bwb25lbnRUZWFtSURcblsxXSAwXG5cbiRwYXJhbWV0ZXJzJFZzQ29uZmVyZW5jZVxuTlVMTFxuXG4kcGFyYW1ldGVycyRWc0RpdmlzaW9uXG5OVUxMXG5cbiRwYXJhbWV0ZXJzJEdhbWVTZWdtZW50XG5OVUxMXG5cbiRwYXJhbWV0ZXJzJFBlcmlvZFxuWzFdIDBcblxuJHBhcmFtZXRlcnMkU2hvdENsb2NrUmFuZ2Vcbk5VTExcblxuJHBhcmFtZXRlcnMkTGFzdE5HYW1lc1xuWzFdIDBcblxuXG4kcmVzdWx0U2V0c1xuIn0= -->
+<pre><code>$resource
+[1] &quot;teamdashboardbygeneralsplits&quot;
+
+$parameters
+$parameters$MeasureType
+[1] &quot;Base&quot;
+
+$parameters$PerMode
+[1] &quot;PerGame&quot;
+
+$parameters$PlusMinus
+[1] &quot;N&quot;
+
+$parameters$PaceAdjust
+[1] &quot;N&quot;
+
+$parameters$Rank
+[1] &quot;N&quot;
+
+$parameters$LeagueID
+NULL
+
+$parameters$Season
+[1] &quot;2016-17&quot;
+
+$parameters$SeasonType
+[1] &quot;Regular Season&quot;
+
+$parameters$PORound
+NULL
+
+$parameters$TeamID
+[1] 1610612742
+
+$parameters$Outcome
+NULL
+
+$parameters$Location
+NULL
+
+$parameters$Month
+[1] 0
+
+$parameters$SeasonSegment
+NULL
+
+$parameters$DateFrom
+NULL
+
+$parameters$DateTo
+NULL
+
+$parameters$OpponentTeamID
+[1] 0
+
+$parameters$VsConference
+NULL
+
+$parameters$VsDivision
+NULL
+
+$parameters$GameSegment
+NULL
+
+$parameters$Period
+[1] 0
+
+$parameters$ShotClockRange
+NULL
+
+$parameters$LastNGames
+[1] 0
+
+
+$resultSets</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUErMWNXM05idHhFbXo2RWtTN2FUNXRMcFExLzgzaUZ6TGppM1I4WWlGYmVpeEJHcE9IblMwQkpUYTBxUkhwSk9tN2YrZy83anBEZ1VnZjNBQldIUzhXMG16SXpqeFdLeFdBQzdpOTA5b0MrT2Y0aU9mamlxVkNwZXhmZTlpdWRMc09iSi8xVXJ0Y3BoK2ZkL0toWC9Ld21VUFgrU2YvYVhIVitmL3p5Y0RrYWovbkJ3ZHp5WXZYd3hHVXh2bG4xL1BwMWNEK2EzazdHdDh5L1BiOGV6MDhsc05welp1ci9zVE1iemw3YWV2M2Fudys1a05tK09ScjM1WUdxZCtIand5K3hpT0p1Ym5aWEtWd3ZKNzFkUUxJa1BUeTdPTDd0WHZWWi9pWGg0ai9pK2VYclpVcWhlcTlrN1A3djZzZFc4V0tLOGs2N2FtK2NLT0YwQ2U4K3Z1azhWTzcvejdFeUI3Wk1PZ2MwbHVOOCtBZkphK3lUdUFLeW9EaVNNWE50OVl0VW5WbjFrZFg3UitsYkJ4d1Q3QURaN21tUC8vSHNGOXZwcUtmNjNwLzlRTENTb0p2SzZiVVhRYlI5cnNOOWJna2ZkMDh2ZWxWejVwY0ljbkhTdkxwcG5pdG4rYzZOMWlxMmp4ZlloNW9Ia1pMVGxScTYwbTloK2VMK2xpRG9zOTNVVllReDZ0TnhoazNGL1phTCt5a1I5TmxHNTZ3YmllQVh4WUxVdEQ4Rm95NU13MnZJNGpMWThDR09DOG1BUWNkQnRHL1R5aU14MnY0ZnR6K213RUYxNzJuNm1qdmJCMDNhM2VkSHM5TjdDZUw3c3Q1cWRxNU5tcDNWMWV2NjAyWDkycnV4aFowTTdHOXJaMEVZWDBNSjhMbHE5eTFORnRUT2VuZkhzakdjVDQvbGlHYjExenMvNjMxMmRTVXZhbWRET2hIWW10SVVKZmJZMG9WN3JwTk02MjExQk8vdloyYzgyOXZQMUlnYzZidjdZSzRPNHhVcFBkcmZRem9yKzJGYTBMTWQ1YUUwSHk0S2lha1pCbU5iRHpONzA4a2hCY2F3Z29WanRCUTBSS0lLYXlCc2FqbE9DODZpaGh0YmtBS0hnTUdoa21qN1E5SkpwbkNTYVNEUnlEZWVOaElqeUlGVEtuRFVLWUVSTTgwYXE0Q2dBUHFHbWwwTVZTei9XSXlWSVVoYU5FR0NOTDJEU2VxVGhhdmhIQWZ4UW41SldHck9tN2QvYzNzbS9IcGM2czBDWFNsaXAvTHBVeUtsU1dGWEZYdE91ZlRlNUd5cjRZaks0ZVFQZUV5R0hJZzJGV3FPalFFT2cwVWtJbWhnVlduV2xlZ3VBdFZKSVZZOEIxdmljdEt3MGdZeVlDaEZESTliNktnMGlBVmlQamdvOWd4ZUhORFJPQ215UW1vSkVZUXh3QVRhUU5ZQlRIc0dhczB4UitiUk1hU2hrVjVIZUNkcTVtZ0RwNVQ1WUxjK3d3Z2dNSzlUMGNpSUExVHpTSW5NQ3dVNWpBdldNMGsvZ21ndVlQUVFhdlo0Q3pUb2xoeERTZ3VxWlp1bXlqZWhkWTNqWEpqU2JqUHE0bUU5TVF1bkxZZzV5QjdQd2I5NXY0TlM4TlU3dFlmbjE3WnY3ejIvclViVVN0WVQzTit5eFhjU0Vxd2FyQUZIUnVsVmY2Y2pRd2RIOW5ZTXhDekt0SEd3aXAxdXY5R01aT3JVUUwxdDBhbm9HNmRUdzlvZUxQYzVUYU1RMDJuUnJhZ1p5NDZWVHd3QWhoRVpXV0R4WlZVc3BYVm9Da21sWWdNUnhCalNSRVJVVTF0VVNqVTkzaDU5UzhFRStTNEw2bE1DbDBkVmd1alNOajBBK1NhUFBJd3dnYmlwaUlLSjdaYTh1SmZ3b0Z2bDJjNzAvQ1QvOXRiK3RWOHM0YVBNc2IvUnIxZjhwcFZrOEczZ3ZqWVB6Ni9ua3hWQ0hoV2VUbjRkMzBENGVYbVA3NE8rRDhldkI5QmZWM1I2K21FSjdyek9ZWHV0NW1xK210Nk1QUEk4MlpDL1U0UklsVm9DajBGUzVnNnIyVU1FcXN5cHpYbFUrS3VJaTBDUUJHNmRjVnJWZ0dFVmN4c0phNUlXSGg0Z3h5U0NXVEFTNFhSSG53RUE3OXBvQUh3YUJ0U2R5QzdhRUUwWUJ0SEVHSVhoc1pLRXAwQlJXK29RY3BhVFhraFQ2VnBGM0hnYjFtbHJlZjZrVmo0Ri9iTnlSZUNPSkFIc0U3SlBBdUY0a0tXNG5waEV4SmFtVVl2dVE5TXJiU0FCTStNQ0FZNkRSK2hsVEFKL0JEZ1VHWEFBTndTQUI3R2g1bVdQaUV3ZWFrMnpBdXVJTUcza0lWQmdZNkpTbERBem9vc1E4UU1DOUoyQXJFcUJQQVI4YkZ5dlJVSzdraFpoQllaRWdnWkVwME1DSzh3RGt6d3ByZExKSXhqSWNZNUJsMk5CSFRzYmtVd3l3SnVaSUtaSEtVR25JT0tCY0U0ZDZCNzBJRHo1ZFE1MEFURms0bFlnQ0kyL1creGRud0JFS0xqSU1KWE9uTUM4M3pvWVVMNFR3MG9SRGdFbXhzY3dUR1RxRW1Xa0M4RG84OHRGT0ZJcE1nalphZ2RXTTQzelNaSitpWFY5Z21ndDVjRUlFb1FWTHkvTUZScHFRUHFjVzJoaVpGUmFDeU5oeWpGRVJ4Z0tBdFlJRzhXb0pVNmttQW1wTTJCUEFaelk0QW84RWhpMmpZYkRzSEVRcmpKQTV4QWF3S2lENEJ0aXJhejUxV0ZZZGd1cVl0a3piVVowb1NYZnA2dVpsQm8zUmw3TG16MjkrVHFQNWlQWERROFluWFQrS1QrRVl4Y05Vdmh6SFN1UDFzenZFNExQSFRFSStPMThGbDhleGg0NFRqTmh3eCt4aS9ld3BZK2hZK3laTFR0WUw3OUFmaDlyd2plSU1IY1A1L2ppR2M1WElHT2Q0QStINTZUak1paDh1OCtjV0NSMDZ2NGtSOGRtNWhBNjE0VWZwT1BldDNNVW1renF5azYwV0dMSXVoNUk0WElGRDFUbG5QcHp2SVQ4dmh6d09uZWZhd3VYWjVPRFc2N01mSnVLZGdlOC9qZVpWaVlPS3ZkcjZSWGM2L0tiOHpjS1Q1bWhVTDMrMThLYU9SN0pqRmZmNGR4RjZPbEh6SW9MMHRVOEp1RTdiUEV3SFl4M09sNmxkWlB2c2hCa3ZCcytKa1pNS2dDR3JFQUlibE4yRitFa0dBM3NNMVFNamkwc2dWNDBGUlZ4UUo1WXBGbVdWVUZlVzBSclVEZklBMXB3VmtKaEE2SnhicENqVEM0SWhQSXNMQ1BzaHM0MUM0L012eVFtSk0wMkZTWklSTHR0aWIvTURHNjRhWTlURXNnTmxNS24zdUlEcWNoMlNxcnF3ZkhuYXFyNzRxVlUzMzVXRWJ5ZnF4K1ZzcTlHbUhOekE2Ynk1Wkt1ZUNCMldQOVo2VXY1YTYzMGlIZ1pQR0Nya3FJaWpZbzRTRFBVby9Sc24rL0JUa3N2MjlFVklWVlBIZWV1a01YTGtBTUVxQUk4Vll0MHBHRG1iemplZTB3Z0IzanRKZUJqSDVsMzNYZEJhZlUwQ1MzVzJ2Slh3V1lRTjl1anBBM3h2OU9pTFh4N1pYeEhsdER4UFAxYndDbjFQNXZqZUNLOVY0dzVNc0NjVE1BU3BvQnBoUHMvQVp4dGFocEN3VkNDaXo0endhWkVPRkNIYngwYjZ1R3M4amVJTmZNUml2Qk1Kb0d3WVVUVU9hMmNydFZKZEJyWXVYd2VVNWIxYUFEdDhxa1V4a0FERzdGTkRyU3g0a25nVUJkVEtCblVVSVN3aWkwQ2oweFFxYVZEUjFNWkFqM0txMXRWZ2hCRUJqTEdRM2hCQmgwV1BZR3g2WE1LRVQ2R1FTZVZRWWRONm81aHNMMm5DTis4SXJDK2t1QWJyY25oR1ZOWUNWd2Jmb214dmIrQkZEaTJEM0pER1FLMFFZaVlvVXZLNkdHbDVOYkdPdHBRaXFYQ2FORmlpWmtSOVlXNW9KUGxnTEFmVEx0QXVtZlZGTFBQblZtcmlRYkZkWVkvdElPYnp3MUNMVk9oanlhaytDSit2NmhEQUFxdzNmL0V4WDI5aFBlUXBxS1BLNXNqRE42bGhjY0JSQitTQ09kSm1ubXp6K2dJdjhmQkpIUXZrNlRjdk5HeFNrbk5zbEdOZGpneWZEK2RUcE90RjNlb29OOWw1WHRWeVNQak9SL0h6Mm1xVTQ3ejRqbTIxODF2VjNmaHhPOHFzdkF6RTE4VTNnUmN4dHlvb2IySXlEcDEzZUJ0SGNjMWhnMXhVaHdQaG94eDc2S2p4OFZHT0l0MTZVV1ZDRi8wKzhJTm1PRHlqTFA4bGo2S3l5Q2lOaDkxNzQ4RmQrV3BvOFNzZGY0bXNsY2dsZlBCeU9MZ1pUdlV6bytuazM3M2hmSVhMb2NRMkZLZkZsUCt0TFA3Ylg1M3VlalNZcWVrVTh1aG1NQjgwZnBxV2szSUpEeWF2eWhma2NwQlgvZ1ppYjJWd2RicUMrUHoxdUpUa3BuNzk4dlg0WC9Xa25HRFJmZi9uOGZMdmZZRDkreW45MzVhczl0UmloK04vM283VlR1eU5CaStHNmtYUVozTEZpd1UzWGsxdngrb1VqaVIyMXBoUDVnTkZkM1E5R1NuTVltMlZYLzhQWjhuSmIwSkdBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["headers"],"name":[2],"type":["list"],"align":["right"]},{"label":["rowSet"],"name":[3],"type":["list"],"align":["right"]}],"data":[{"1":"OverallTeamDashboard","2":"<chr [57]>","3":"<chr [1 × 57]>","_rn_":"1"},{"1":"LocationTeamDashboard","2":"<chr [57]>","3":"<chr [2 × 57]>","_rn_":"2"},{"1":"WinsLossesTeamDashboard","2":"<chr [57]>","3":"<chr [2 × 57]>","_rn_":"3"},{"1":"MonthTeamDashboard","2":"<chr [57]>","3":"<chr [7 × 57]>","_rn_":"4"},{"1":"PrePostAllStarTeamDashboard","2":"<chr [57]>","3":"<chr [2 × 57]>","_rn_":"5"},{"1":"DaysRestTeamDashboard","2":"<chr [57]>","3":"<chr [6 × 57]>","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBHZXQgQmFzaWMgdGVhbSBkYXRhCgpgYGB7cn0KdGVhbUNvZGUgPC0gIm1hdmVyaWNrcyIKdGVhbXNfbGlzdCAlPiUgZmlsdGVyKFRFQU1fQ09ERSA9PSB0ZWFtQ29kZSkgJT4lIG11dGF0ZV9pZihpcy5mYWN0b3IsIGFzLmNoYXJhY3RlcikgLT4gYmFzaWNUZWFtSW5mbzsgYmFzaWNUZWFtSW5mbwoKYGBgCgojIEdldCBzZWFzb24gU3RhdHMKYGBge3J9CnVybCA8LSB1cmxCdWlsZGVyKHN0YXRDYXQgPSAidGVhbWRhc2hib2FyZGJ5Z2VuZXJhbHNwbGl0cyIsIFRlYW1JRCA9IGJhc2ljVGVhbUluZm8gJT4lIHNlbGVjdChURUFNX0lEKSwgbSkKZnJvbUpzb25fd29ya2Fyb3VuZCgpCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBHZXQgQmFzaWMgdGVhbSBkYXRhCgpgYGB7cn0KbGlicmFyeShkcGx5cikKdGVhbUNvZGUgPC0gIm1hdmVyaWNrcyIKdGVhbXNfbGlzdCAlPiUgZmlsdGVyKFRFQU1fQ09ERSA9PSB0ZWFtQ29kZSkgJT4lIG11dGF0ZV9pZihpcy5mYWN0b3IsIGFzLmNoYXJhY3RlcikgLT4gYmFzaWNUZWFtSW5mbzsgYmFzaWNUZWFtSW5mbwoKYGBgCgojIEdldCBzZWFzb24gU3RhdHMKYGBge3J9CmdldFRlYW1TZWFzb25TdGF0cyhwYXJhbWV0ZXJzID0gbGlzdChUZWFtSUQgPSBiYXNpY1RlYW1JbmZvICU+JSBzZWxlY3QoVEVBTV9JRCkpKQpgYGAKCg==</div>
 
 
 
