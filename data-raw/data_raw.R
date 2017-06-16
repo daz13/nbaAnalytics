@@ -2,14 +2,24 @@
 
 
 ## Load all players
-all_players <- nbaStatsGrabber(urlBuilder(statCat = "commonallplayers", TeamID = "1610612751"))
+all_players <- nbaStatsGrabber(urlBuilder(statCat = "commonallplayers", parameters = list(LeagueID         = "00",
+                                                                                      isOnlyCurrentSeason  = "1",
+                                                                                      Season               = "2016-17",
+                                                                                      DateFrom             = "",
+                                                                                      DateTo               = "",
+                                                                                      SeasonType           = "Regular+Season",
+                                                                                      TeamID               = "1610612751",
+                                                                                      PlayerID             = "",
+                                                                                      PerMode              = "PerGame")
+                                          )
+                               )
 
 ## Teams
 teams <- unique(all_players$TEAM_CODE)
 team_ids <- unique(all_players$TEAM_ID)
 team_ids <- team_ids[team_ids != "0"]
 
-teams_list <- lapply(as.character(team_ids), function(id) nbaStatsGrabber(urlBuilder(statCat = "teaminfocommon", TeamID = id)))
+teams_list <- lapply(as.character(team_ids), function(id) nbaStatsGrabber(urlBuilder(statCat = "teaminfocommon", list(TeamID = id))))
 teams_list <-  do.call("rbind", teams_list)
 
 ### Players

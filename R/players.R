@@ -7,12 +7,13 @@ library(ggplot2)
 #'
 #' @examples
 #' dat <- get_PlayerCareerStats_by_name("Lance Stephenson"); dat
-get_PlayerCareerStats_by_name <- function(n) {
+get_PlayerCareerStats_by_name <- function(n, permode = "Per36") {
   id <- nbaAnalytics::all_players %>%
     filter(DISPLAY_FIRST_LAST == n) %>%
     select(PERSON_ID)
   nbaStatsGrabber((urlBuilder(statCat = "playercareerstats",
-                              PlayerID = as.character(id[1,1])
+                              parameters = list(PlayerID = as.character(id[1,1]),
+                                                PerMode =  permode)
                               )
                    )
                   )

@@ -31,7 +31,7 @@ shinyServer(function(input, output) {
   )
 
   player_career_stats <- reactive({
-    get_PlayerCareerStats_by_name(input$player)
+    get_PlayerCareerStats_by_name(input$player, permode = input$permode)
   })
 
   output$stat_cat <- renderUI(
@@ -54,6 +54,15 @@ shinyServer(function(input, output) {
   })
   output$ playerShootingPercentages <- renderPlotly({
     plot_playerStats(player_career_stats(), FG_PCT, FG3_PCT, FT_PCT)
+  })
+  output$playerRebounds <- renderPlotly({
+    plot_playerStats(player_career_stats(), REB, OREB, DREB)
+  })
+  output$playerAssists <-renderPlotly({
+    plot_playerStats(player_career_stats(), AST, TOV)
+  })
+  output$playerDefense <-renderPlotly({
+    plot_playerStats(player_career_stats(), STL, BLK, DREB)
   })
 
 })

@@ -27,19 +27,33 @@ shinyUI(fluidPage(
 
     # Show a plot of the generated distribution
     mainPanel( width= 10,
-      tabsetPanel(
-        tabPanel("Single Statistics",
-                 uiOutput("stat_cat"),
-                 fluidRow(plotlyOutput("playerPlot"))
-        ),
-        tabPanel("Scoring",
-                 h3("Points"),
-                 plotlyOutput("playerPoints"),
-                 h3("Shooting volumes and Percentages"),
-                 column(6,plotlyOutput("playerShootingVolumes")),
-                 column(6,plotlyOutput("playerShootingPercentages"))
-        )
-      )
+               tabsetPanel(
+                 tabPanel("Team"),
+                 tabPanel("Player",
+                          inputPanel(selectInput("permode", "Per Mode", choices = c("PerGame", "Per36"))),
+                          tabsetPanel(
+                            tabPanel("Single Statistics",
+                                     uiOutput("stat_cat"),
+                                     fluidRow(plotlyOutput("playerPlot"))
+                            ),
+                            tabPanel("Scoring",
+                                     h3("Points"),
+                                     plotlyOutput("playerPoints"),
+                                     h3("Shooting volumes and Percentages"),
+                                     column(6,plotlyOutput("playerShootingVolumes")),
+                                     column(6,plotlyOutput("playerShootingPercentages"))
+                            ),
+                            tabPanel("Rebounding",
+                                     plotlyOutput("playerRebounds")
+                            ),
+                            tabPanel("Assists",
+                                     plotlyOutput("playerAssists")
+                            ),
+                            tabPanel("Defense",
+                                     plotlyOutput("playerDefense"))
+                          ))
+               )
+
     )
   )
 ))

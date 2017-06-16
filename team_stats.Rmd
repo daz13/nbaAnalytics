@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Get Basic team data
+
+```{r}
+teamCode <- "mavericks"
+teams_list %>% filter(TEAM_CODE == teamCode) %>% mutate_if(is.factor, as.character) -> basicTeamInfo; basicTeamInfo
+
+```
+
+# Get season Stats
+```{r}
+url <- urlBuilder(statCat = "teamdashboardbygeneralsplits", TeamID = basicTeamInfo %>% select(TEAM_ID), m)
+fromJson_workaround()
+```
+

@@ -23,6 +23,10 @@ buildArg <- function(key, value){
   return(paste(key, "=", value,"&", sep=""))
 
 }
+buildArg2 <- function(vec){
+  paramsList <- lapply(names(vec), function(x) paste(x, "=", vec[[x]][1],"&", sep=""))
+  paste(unlist(paramsList), collapse = "")
+}
 
 #' JSON workaround function
 #'
@@ -56,26 +60,20 @@ fromJson_workaround <- function(url) {
 #'
 #' @examples
 #' urlBuilder(statCat = "commonallplayers", TeamID = "1610612751")
-urlBuilder <- function(statCat              = "commonallplayers",
-                       LeagueID             = "00",
-                       isOnlyCurrentSeason  = "1",
-                       Season           = "2016-17",
-                       DateFrom             = "",
-                       DateTo               = "",
-                       SeasonType           = "Regular+Season",
-                       TeamID               = "",
-                       PlayerID             = "",
-                       PerMode              = "PerGame"){
+#'
+#' ToDO: Simplfy function that arguments can be passed
+urlBuilder <- function(statCat    = "commonallplayers",
+                       parameters = list(LeagueID             = "00",
+                                         isOnlyCurrentSeason  = "1",
+                                         Season           = "2016-17",
+                                         DateFrom             = "",
+                                         DateTo               = "",
+                                         SeasonType           = "Regular+Season",
+                                         TeamID               = "",
+                                         PlayerID             = "",
+                                         PerMode              = "PerGame")){
 
-    return(paste("http://stats.nba.com/stats/",statCat,"?",
-                 buildArg("LeagueID",LeagueID),
-                 buildArg("isOnlyCurrentSeason",isOnlyCurrentSeason),
-                 buildArg("Season",Season),
-                 buildArg("TeamID", TeamID),
-                 buildArg("PlayerID",PlayerID),
-                 buildArg("SeasonType",SeasonType),
-                 buildArg("PerMode",PerMode),
-                 sep=""))
+    return(paste("http://stats.nba.com/stats/",statCat,"?", buildArg2(parameters), sep=""))
 }
 
 
@@ -106,7 +104,7 @@ nbaStatsGrabber<- function(url,
   return(all_players)
 }
 
-getTeamStats <- function(teamID, value = "common"){
+getTeamStats <- function(url, teamID, value = "common"){
   #teamID <- "1610612751"
   url <- paste("http://stats.nba.com/stats/teaminfocommon?LeagueID=00&SeasonType=Regular+Season&TeamID=",teamID,"&season=2016-17", sep = "")
   raw <- fromJson_workaround(url)
@@ -127,6 +125,8 @@ getTeamStats <- function(teamID, value = "common"){
 #     - Player Career Stats http://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=201167
 #     - Player Game Log http://stats.nba.com/stats/playergamelog?DateFrom=&DateTo=&LeagueID=00&PlayerID=201167&Season=2016-17&SeasonType=Regular+Season
 #     - Team Game Logs http://stats.nba.com/stats/teamgamelog?DateFrom=&DateTo=&LeagueID=00&Season=2016-17&SeasonType=Regular+Season&TeamID=1610612741
+
+
 
 
 #'
