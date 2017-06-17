@@ -34,9 +34,9 @@ buildArg2 <- function(vec){
 #'
 #' @examples
 #' fromJson_workaround(urlBuilder())
-fromJson_workaround <- function(url) {
+fromJson_workaround <- function(url, ...) {
   curl::curl_download(url, "temp")
-  fromJSON("temp")
+  fromJSON("temp", ...)
 }
 
 
@@ -121,8 +121,17 @@ getTeamStats <- function(url, teamID, value = "common"){
   }
 }
 
-getTeamSeasonStats <- function(parameters = list(TeamID = basicTeamInfo %>% select(TEAM_ID)
-                                            SeasonType = "Playoffs")){
+#' Grab Team Season data
+#'
+#' Sends JSON request to nba.stats.com and returns processed list of data frame
+#'
+#' @param parameters: a list of arguments send as URL parameters, value given here will overwrite
+#' the default parameters (hard-coded in the function)
+#'
+#' @return A list of data frames
+grab_TeamSeasonData <- function(parameters = list(TeamID = basicTeamInfo %>% select(TEAM_ID),
+                                                 SeasonType = "Playoffs",
+                                                 Season = "2016-17")){
 
   params <- list(TeamID = "",
                  MeasureType = "Base",
@@ -147,12 +156,42 @@ getTeamSeasonStats <- function(parameters = list(TeamID = basicTeamInfo %>% sele
                  LastNGames	= "0"
   )
 
-  params[] <- lapply(names(params), function(x) if(x %in% names(testCust)) testCust[[x]] else params[[x]] )
+  params[] <- lapply(names(params), function(x) if(x %in% names(parameters)) parameters[[x]] else params[[x]] )
 
   url <- urlBuilder(statCat = "teamdashboardbygeneralsplits", parameters = params)
-  fromJson_workaround(url)
+  raw <-  fromJson_workaround(url)
+
+  dfs <- convertNestedJson(raw)
+  dfs <- lapply(dfs, function(x) x %>% mutate(Season = params$Season))
+  dfs
 }
-getTeamSeasonStats()
+grab_TeamSeasonData()
+
+
+create_TeamSeasonDF <- function(teamID = basicTeamInfo %>% select(TEAM_ID),
+                                seasons = c("2016-17", "2015-16", "2014-15", "2013-14", "2012-13", "2011-12", "2010-11", "2009-10", "2008-09", "2007-08")) {
+  seasonStatList <- lapply(seasons, function(x) grab_TeamSeasonData(parameters = list(TeamID = teamID,
+                                                                                     Season = x)) %>%
+                             bind_rows() %>%
+                             mutate(SEASON_YEAR = x) %>%
+                             mutate_at(.cols = -(1:3), .funs = as.numeric))
+  names(seasonStatList) <- seasons
+
+  bind_rows(lapply(names(seasonStatList),
+                   function(x) bind_rows(seasonStatList[[x]])))
+}
+create_TeamSeasonDF()
+
+
+convertNestedJson <- function(jsonObj) {
+  df <- lapply(1:length(jsonObj$resultSets$name), function(x) {
+    tmp <- data.frame(jsonObj$resultSets$rowSet[[x]])
+    names(tmp) <- jsonObj$resultSets$header[[x]]
+    tmp
+  })
+  names(df) <- jsonObj$resultSets$name
+  df
+}
 
 # Some probably useful links:
 #     - Player Career Stats http://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=201167

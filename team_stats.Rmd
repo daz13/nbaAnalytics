@@ -14,6 +14,27 @@ teams_list %>% filter(TEAM_CODE == teamCode) %>% mutate_if(is.factor, as.charact
 
 # Get season Stats
 ```{r}
-getTeamSeasonStats(parameters = list(TeamID = basicTeamInfo %>% select(TEAM_ID)))
+getTeamSeasonStats(parameters = list(TeamID = basicTeamInfo %>% select(TEAM_ID), Season = "2016-17")) %>% 
+  bind_rows() %>% 
+  mutate(SEASON_YEAR = "2016-17") -> teamStatsSeason; teamStatsSeason
+
 ```
+
+```{r}
+seasons <- c("2016-17", "2015-16", "2014-15", "2013-14", "2012-13", "2011-12", "2010-11", "2009-10", "2008-09", "2007-08")
+teamDF <- create_TeamSeasonDF(basicTeamInfo %>% select(TEAM_ID), seasons = seasons); teamDF
+```
+
+
+# Plot Overall
+
+```{r}
+teamDF %>% 
+  filter(GROUP_SET == "Overall") %>%
+  ggplot(aes(x = SEASON_YEAR, y = W, group = 1)) + geom_line()
+```
+
+
+
+
 
