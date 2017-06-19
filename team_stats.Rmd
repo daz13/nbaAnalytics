@@ -7,6 +7,7 @@ output: html_notebook
 
 ```{r}
 library(dplyr)
+library(plotly)
 teamCode <- "mavericks"
 teams_list %>% filter(TEAM_CODE == teamCode) %>% mutate_if(is.factor, as.character) -> basicTeamInfo; basicTeamInfo
 
@@ -24,12 +25,12 @@ getTeamSeasonStats(parameters = list(TeamID = basicTeamInfo %>% select(TEAM_ID),
 seasons <- c("2016-17", "2015-16", "2014-15", "2013-14", "2012-13", "2011-12", "2010-11", "2009-10", "2008-09", "2007-08")
 teamDF <- create_TeamSeasonDF(basicTeamInfo %>% select(TEAM_ID), seasons = seasons); teamDF
 
-head(allteamsDF)
-head(allteamsDF$warriors)
+teamStatsComplete <- bind_rows(lapply(1:length(allteamsDF), function(x) allteamsDF[[x]] %>% mutate(team = names(allteamsDF)[[x]])))
+head(teamStatsComplete)
 ```
 
 
-# Plot Overall
+# Plot Single Team stats
 
 ```{r}
 teamDF %>% 
@@ -37,6 +38,20 @@ teamDF %>%
   ggplot(aes(x = SEASON_YEAR, y = W, group = 1)) + geom_line()
 ```
 
+# PLot all team stats
+
+```{r}
+plot_teamStats <- function(team, statistic) {
+  ggplotly(teamStatsComplete %>%
+    filter(GROUP_SET == "Overall") %>%
+  ggplot(aes_(x = "SEASON_YEAR", y = statistic, group = "team", col = "team")) + 
+    geom_line(alpha = 0.2) +
+    geom_line(data = teamStatsComplete %>% filter(GROUP_SET == "Overall") %>% filter_(team == team), 
+              aes_(x = "SEASON_YEAR", y = statistic, group = 1)))
+}
+plot_teamStats("warriors", "AST")
+  
+```
 
 
 
