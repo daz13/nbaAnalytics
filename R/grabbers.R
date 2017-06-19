@@ -165,7 +165,7 @@ grab_TeamSeasonData <- function(parameters = list(TeamID = basicTeamInfo %>% sel
   dfs <- lapply(dfs, function(x) x %>% mutate(Season = params$Season))
   dfs
 }
-grab_TeamSeasonData()
+#grab_TeamSeasonData()
 
 
 create_TeamSeasonDF <- function(teamID = basicTeamInfo %>% select(TEAM_ID),
@@ -180,7 +180,7 @@ create_TeamSeasonDF <- function(teamID = basicTeamInfo %>% select(TEAM_ID),
   bind_rows(lapply(names(seasonStatList),
                    function(x) bind_rows(seasonStatList[[x]])))
 }
-create_TeamSeasonDF()
+#create_TeamSeasonDF()
 
 
 convertNestedJson <- function(jsonObj) {

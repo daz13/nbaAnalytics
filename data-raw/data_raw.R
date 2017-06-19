@@ -22,6 +22,10 @@ team_ids <- team_ids[team_ids != "0"]
 teams_list <- lapply(as.character(team_ids), function(id) nbaStatsGrabber(urlBuilder(statCat = "teaminfocommon", list(TeamID = id))))
 teams_list <-  do.call("rbind", teams_list)
 
+allteamsDF <- lapply(team_ids, function(x) create_TeamSeasonDF(x, seasons = seasons))
+names(allteamsDF) <- teams[-10]
+devtools::use_data(allteamsDF)
+
 ### Players
 players_per_team <- lapply(as.character(teams_list$TEAM_CODE),
                            function(team) all_players %>% filter(TEAM_CODE == team))
